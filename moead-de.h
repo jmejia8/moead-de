@@ -7,10 +7,10 @@
 #include <string.h>
 #include <algorithm>
 
-
-// #include "common/GlobalVariable.cpp"
-#include "common/IndividualBase.cpp"
-#include "common/SubProblemBase.cpp"
+#include "common/UtilityToolBox.h"
+#include "common/GlobalVariable.h"
+#include "common/IndividualBase.h"
+#include "common/SubProblemBase.h"
 
 
 

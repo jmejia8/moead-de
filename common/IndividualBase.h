@@ -4,7 +4,7 @@
 #pragma once
 
 #include "GlobalVariable.h"
-#include "GlobalObject.cpp"
+#include "GlobalObject.h"
 #include <vector>
 
 using namespace std;

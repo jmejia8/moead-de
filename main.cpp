@@ -1,6 +1,15 @@
 #include "common/GlobalVariable.cpp"
 // #include "ALG_EMO_MOEAD.h"
+#include "moead-de.h"
+
+#include "common/GlobalObject.cpp"
+// #include "common/GlobalVariable.cpp"
+#include "common/IndividualBase.cpp"
+#include "common/SubProblemBase.cpp"
+#include "common/TestInstance.cpp"
+#include "common/UtilityToolBox.cpp"
 #include "moead-de.cpp"
+
 #include <string.h>
 #include <time.h>
 

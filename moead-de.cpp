@@ -82,7 +82,7 @@ void CALG_EMO_MOEAD_DE::InitializeParameter()
 {
 char filename[1024];
 
-	sprintf(filename,"../../SETTINGS/algorithms/MOEAD-DE.txt", strTestInstance);
+	// sprintf(filename,"MOEAD-DE.txt", strTestInstance);
 
 	char str_temp[1024];
 	std::ifstream readf(filename);
@@ -130,7 +130,7 @@ void CALG_EMO_MOEAD_DE::InitializePopulation()
 
 
 	char filename1[1024];
-	sprintf(filename1,"../../SETTINGS/weightvectors/W%dD_%d.dat", NumberOfObjectives, s_PopulationSize);
+	// sprintf(filename1,"../../SETTINGS/weightvectors/W%dD_%d.dat", NumberOfObjectives, s_PopulationSize);
 	std::ifstream readf(filename1);
 
 
@@ -353,7 +353,7 @@ void CALG_EMO_MOEAD_DE::SaveVarSpace(char saveFilename[1024])
 void CALG_EMO_MOEAD_DE::SavePopulation(int run_id)
 {
 	char filename[1024];
-	sprintf(filename,"../../SAVING/MOEAD-DE/POF/POF_%s_RUN%d.dat",strTestInstance, run_id);
+	// sprintf(filename,"../../SAVING/MOEAD-DE/POF/POF_%s_RUN%d.dat",strTestInstance, run_id);
 	SaveObjSpace(filename);
 
 	//sprintf(filename,"../Saving/MOEAD-DE/POS_%s_RUN%d.dat",strTestInstance, run_id);
