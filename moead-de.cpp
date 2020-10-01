@@ -15,11 +15,14 @@ CALG_EMO_MOEAD_DE::~CALG_EMO_MOEAD_DE(void)
 
 void CALG_EMO_MOEAD_DE::Execute(int run_id)
 {
+	printf("InitializeParameter\n");
 
     this->InitializeParameter();
+		printf("InitializePopulation\n");
 
 	this->InitializePopulation();
 
+	printf("InitializeNeighborhood\n");
 	this->InitializeNeighborhood();
 
 	int gen = 1;
@@ -82,7 +85,7 @@ void CALG_EMO_MOEAD_DE::InitializeParameter()
 {
 char filename[1024];
 
-	// sprintf(filename,"MOEAD-DE.txt", strTestInstance);
+	sprintf(filename,"MOEAD-DE.txt", strTestInstance);
 
 	char str_temp[1024];
 	std::ifstream readf(filename);
@@ -130,7 +133,7 @@ void CALG_EMO_MOEAD_DE::InitializePopulation()
 
 
 	char filename1[1024];
-	// sprintf(filename1,"../../SETTINGS/weightvectors/W%dD_%d.dat", NumberOfObjectives, s_PopulationSize);
+	sprintf(filename1,"settings/W%dD_%d.dat", NumberOfObjectives, s_PopulationSize);
 	std::ifstream readf(filename1);
 
 
@@ -262,6 +265,8 @@ void CALG_EMO_MOEAD_DE::EvolvePopulation()
 
 	for(unsigned int s=0; s<s_PopulationSize; s++)
 	{
+		// printf("ind %d\n", s);
+
 		unsigned int id_c = order[s];
 
 		if(UtilityToolBox.Get_Random_Number()<s_LocalMatingRatio)
@@ -353,9 +358,9 @@ void CALG_EMO_MOEAD_DE::SaveVarSpace(char saveFilename[1024])
 void CALG_EMO_MOEAD_DE::SavePopulation(int run_id)
 {
 	char filename[1024];
-	// sprintf(filename,"../../SAVING/MOEAD-DE/POF/POF_%s_RUN%d.dat",strTestInstance, run_id);
+	sprintf(filename,"saving/POF_%s_RUN%d.dat",strTestInstance, run_id);
 	SaveObjSpace(filename);
 
-	//sprintf(filename,"../Saving/MOEAD-DE/POS_%s_RUN%d.dat",strTestInstance, run_id);
-	//SaveVarSpace(filename);
+	sprintf(filename,"saving/POS_%s_RUN%d.dat",strTestInstance, run_id);
+	SaveVarSpace(filename);
 }

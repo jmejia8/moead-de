@@ -1,0 +1,6 @@
+Instance     Pop_Size     NeighborhoodSize  Select_Prob   Replace_Limit  Scaling_Factor
+ZDT1         100              10                              0.9                  2                      0.5 
+ZDT2         100              10                              0.9                  2                      0.5 
+ZDT3         100              10                              0.9                  2                      0.5 
+DTLZ1        300             30                              0.9                  2                      0.5 
+DTLZ2        300             30                              0.9                  2                      0.5     
