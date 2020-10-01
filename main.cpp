@@ -37,8 +37,7 @@ int main(int argc, char const *argv[]) {
 		readf>>NumberOfFuncEvals;
 		readf>>strCrossOverType;
 
-		printf("\n\n -- Instance: %s, %d Variables %d  Objectives \n\n", strTestInstance, NumberOfVariables,
-						                         NumberOfObjectives);
+		printf("\n\n -- Instance: %s, %d Variables %d  Objectives \n\n", strTestInstance, NumberOfVariables, NumberOfObjectives);
 
 		clock_t start, temp, finish;
 		double  duration, last = 0;
@@ -46,33 +45,32 @@ int main(int argc, char const *argv[]) {
 
 
 
+		printf("a1\n");
 		std::fstream fout;
 		char logFilename[1024];
-		// sprintf(logFilename, "../../SAVING/%s/LOG/LOG_%s.dat", alg_name, strTestInstance);
+		printf("a1\n");
+		sprintf(logFilename, "saving/LOG_.dat");
+		printf("b1\n");
 		fout.open(logFilename,std::ios::out);
 
 		for(int run=1; run<=total_run; run++)
 		{
+			printf("a1\n");
 			ResetRandSeed();
 
-			if(!strcmp(alg_name,"MOEAD"))
-			{
-				printf("nada por aqui\n");
-				return 0;
-			    // CALG_EMO_MOEAD MOEAD;
-			    // MOEAD.Execute(run);
-					//
-			}
 
-            if(!strcmp(alg_name,"MOEAD-DE"))
+      if(!strcmp(alg_name,"MOEAD-DE"))
 			{
 			    CALG_EMO_MOEAD_DE MOEAD_DE;
+					printf("start\n");
 			    MOEAD_DE.Execute(run);
+					printf("end 2\n");
 			}
 
 
 			temp = clock();
 			duration = (double)(temp - start) / CLOCKS_PER_SEC;
+			printf("time %f\n", duration - last);
 			fout<<duration - last<<" ";
 			last = duration;
 			if(run%10==0) fout<<"\n";
