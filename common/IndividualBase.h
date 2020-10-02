@@ -13,6 +13,7 @@ class CIndividualBase
 {
 public:
 	CIndividualBase();
+	CIndividualBase(int, int);
 	virtual ~CIndividualBase();
 
 	vector <double> x_var;
@@ -24,9 +25,12 @@ public:
 	unsigned int    count;
 	unsigned int    type;
 	double          density;
+	int NumberOfVariables;
+	int NumberOfObjectives;
 
+	void initialize(int, int);
 	void   Randomize();
-	void   Evaluate();
+	void   Evaluate(void (*f)(std::vector<double>&, std::vector<double>&, unsigned int));
 	void   Show(int type);
 
     bool   operator<(const CIndividualBase &ind2);

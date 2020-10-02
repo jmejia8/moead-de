@@ -1,6 +1,25 @@
+#include <string.h>
+#include <time.h>
 #include "common/GlobalVariable.cpp"
 // #include "ALG_EMO_MOEAD.h"
 #include "moead-de.h"
+void testF(vector<double> &x, vector<double> &f, const unsigned int nx)
+{
+	f = std::vector<double>(2, 0);
+
+	unsigned int j;
+	double sum1,g;
+
+	sum1 = 0.0;
+	for(j = 1; j <= nx-1; j++)
+	{
+		sum1 += x[j];
+	}
+	g=1+9*sum1/(nx-1);
+	f[0] = x[0];
+	f[1] = g*(1-sqrt(x[0]/g));
+	// printf("%g, %g\n", f[0], f[1]);
+}
 
 #include "common/GlobalObject.cpp"
 // #include "common/GlobalVariable.cpp"
@@ -10,12 +29,16 @@
 #include "common/UtilityToolBox.cpp"
 #include "moead-de.cpp"
 
-#include <string.h>
-#include <time.h>
+
+
 
 void ResetRandSeed();
 
 int main(int argc, char const *argv[]) {
+
+	int   NumberOfVariables;
+	int   NumberOfObjectives;
+	int   NumberOfFuncEvals;
 
 	int total_run, numOfInstance;
     std::ifstream readf("Instance.txt");
@@ -63,7 +86,7 @@ int main(int argc, char const *argv[]) {
 			{
 			    CALG_EMO_MOEAD_DE MOEAD_DE;
 					printf("start\n");
-			    MOEAD_DE.Execute(run);
+			    MOEAD_DE.Execute(run, testF,NumberOfVariables, NumberOfObjectives, NumberOfFuncEvals);
 					printf("end 2\n");
 			}
 
@@ -74,9 +97,11 @@ int main(int argc, char const *argv[]) {
 			fout<<duration - last<<" ";
 			last = duration;
 			if(run%10==0) fout<<"\n";
+			break;
 		}
 
 		fout<<"\n\n";  	finish = clock();  	fout.close();
+		break;
 	}
 
 	return 0;

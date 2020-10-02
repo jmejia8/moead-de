@@ -22,6 +22,7 @@ public:
 public:
 
      CSubProblemBase();
+     CSubProblemBase(int, int);
     ~CSubProblemBase();
 
 	void Show_Weight_Vector();
@@ -43,6 +44,3 @@ public:
 
 	void operator=(const CSubProblemMAP &SP);
 };
-
-
-

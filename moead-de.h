@@ -17,42 +17,46 @@
 class CALG_EMO_MOEAD_DE
 {
 public:
-	CALG_EMO_MOEAD_DE(void);
-	~CALG_EMO_MOEAD_DE(void);
+    CALG_EMO_MOEAD_DE(void);
+    ~CALG_EMO_MOEAD_DE(void);
 
-	void Execute(int run_id);
+    void Execute(int run_id, void (*f)(std::vector<double>&, std::vector<double>&, unsigned int), int, int, int);
 
-	void InitializeNeighborhood();
-	void InitializePopulation();
-	void InitializeParameter();
+    void InitializeNeighborhood();
+    void InitializePopulation(void (*f)(std::vector<double>&, std::vector<double>&, unsigned int));
+    void InitializeParameter();
 
 
 
-	void UpdateReference(vector<double> &obj_vect);
+    void UpdateReference(vector<double> &obj_vect);
     void UpdateProblem(CIndividualBase &child, unsigned sp_id);
 
     void SelectMatingPool(vector<unsigned> &pool, unsigned sp_id, unsigned selected_size);
-	void EvolvePopulation();
-	bool IsTerminated();
+    void EvolvePopulation(void (*f)(std::vector<double>&, std::vector<double>&, unsigned int));
+    bool IsTerminated();
 
 
-	void SaveObjSpace(char saveFilename[1024]);
-	void SaveVarSpace(char saveFilename[1024]);
-	void SavePopulation(int run_id);
+    void SaveObjSpace(char saveFilename[1024]);
+    void SaveVarSpace(char saveFilename[1024]);
+    void SavePopulation(int run_id);
 
 
 public:
 
     vector <CSubProblemBase> m_PopulationSOP;
-	vector <double>      v_ReferencePoint;
+    vector <double>      v_ReferencePoint;
 
-	unsigned int     s_PopulationSize;
+    unsigned int     s_PopulationSize;
     unsigned int	 s_NeighborhoodSize;
-	unsigned int     s_ReplacementLimit;
-	double           s_LocalMatingRatio;
-	double           s_Scaling_Factor;
+    unsigned int     s_ReplacementLimit;
+    double           s_LocalMatingRatio;
+    double           s_Scaling_Factor;
 
-	int              s_Fevals_Count;
-	bool             b_Selection_Local;
+    int              s_Fevals_Count;
+    bool             b_Selection_Local;
+
+    int   NumberOfVariables;
+    int   NumberOfObjectives;
+    int   NumberOfFuncEvals;
 
 };

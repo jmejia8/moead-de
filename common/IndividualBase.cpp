@@ -8,8 +8,18 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CIndividualBase::CIndividualBase()
+CIndividualBase::CIndividualBase(){
+
+}
+CIndividualBase::CIndividualBase(int NumberOfVariables, int NumberOfObjectives)
 {
+    this->initialize(NumberOfVariables, NumberOfObjectives);
+}
+
+void CIndividualBase::initialize(int NumberOfVariables, int NumberOfObjectives)
+{
+    this->NumberOfVariables = NumberOfVariables;
+    this->NumberOfObjectives = NumberOfObjectives;
     x_var    = vector<double>(NumberOfVariables, 0);
     f_obj    = vector<double>(NumberOfObjectives, 0);
     f_normal = vector<double>(NumberOfObjectives, 0);
@@ -26,33 +36,34 @@ void CIndividualBase::Randomize()
 
     unsigned int n;
 
-    for(n=0; n<NumberOfVariables; n++)
+    for(n=0; n<this->NumberOfVariables; n++)
     {
         x_var[n] = lowBound + UtilityToolBox.Get_Random_Number()*(uppBound - lowBound);
     }
 }
 
-void CIndividualBase::Evaluate()
+void CIndividualBase::Evaluate(void (*f)(std::vector<double>&, std::vector<double>&, unsigned int))
 {
 
 
-    if(!strcmp("ZDT1", strTestInstance))   TestInstance.ZDT1(x_var, f_obj, x_var.size());
-    if(!strcmp("ZDT2", strTestInstance))   TestInstance.ZDT2(x_var, f_obj, x_var.size());
-    if(!strcmp("ZDT3", strTestInstance))   TestInstance.ZDT3(x_var, f_obj, x_var.size());
-
-    if(!strcmp("DTLZ1", strTestInstance))  TestInstance.DTLZ1(x_var, f_obj, x_var.size());
-    if(!strcmp("DTLZ2", strTestInstance))  TestInstance.DTLZ2(x_var, f_obj, x_var.size());
-
-
-    if(!strcmp("LZ1", strTestInstance))  TestInstance.TEC09_LZ1(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ2", strTestInstance))  TestInstance.TEC09_LZ2(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ3", strTestInstance))  TestInstance.TEC09_LZ3(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ4", strTestInstance))  TestInstance.TEC09_LZ4(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ5", strTestInstance))  TestInstance.TEC09_LZ5(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ6", strTestInstance))  TestInstance.TEC09_LZ6(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ7", strTestInstance))  TestInstance.TEC09_LZ7(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ8", strTestInstance))  TestInstance.TEC09_LZ8(x_var, f_obj, x_var.size());
-    if(!strcmp("LZ9", strTestInstance))  TestInstance.TEC09_LZ9(x_var, f_obj, x_var.size());
+    (*f)(x_var, f_obj, x_var.size());
+    // if(!strcmp("ZDT1", strTestInstance))   TestInstance.ZDT1(x_var, f_obj, x_var.size());
+    // if(!strcmp("ZDT2", strTestInstance))   TestInstance.ZDT2(x_var, f_obj, x_var.size());
+    // if(!strcmp("ZDT3", strTestInstance))   TestInstance.ZDT3(x_var, f_obj, x_var.size());
+    //
+    // if(!strcmp("DTLZ1", strTestInstance))  TestInstance.DTLZ1(x_var, f_obj, x_var.size());
+    // if(!strcmp("DTLZ2", strTestInstance))  TestInstance.DTLZ2(x_var, f_obj, x_var.size());
+    //
+    //
+    // if(!strcmp("LZ1", strTestInstance))  TestInstance.TEC09_LZ1(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ2", strTestInstance))  TestInstance.TEC09_LZ2(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ3", strTestInstance))  TestInstance.TEC09_LZ3(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ4", strTestInstance))  TestInstance.TEC09_LZ4(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ5", strTestInstance))  TestInstance.TEC09_LZ5(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ6", strTestInstance))  TestInstance.TEC09_LZ6(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ7", strTestInstance))  TestInstance.TEC09_LZ7(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ8", strTestInstance))  TestInstance.TEC09_LZ8(x_var, f_obj, x_var.size());
+    // if(!strcmp("LZ9", strTestInstance))  TestInstance.TEC09_LZ9(x_var, f_obj, x_var.size());
 
 }
 
@@ -63,13 +74,13 @@ void CIndividualBase::Show(int type)
     unsigned int n;
     if(type==0)
     {
-        for(n=0; n<NumberOfObjectives; n++)
+        for(n=0; n<this->NumberOfObjectives; n++)
         printf("%f ",f_obj[n]);
         printf("\n");
     }
     else
     {
-        for(n=0; n<NumberOfVariables; n++)
+        for(n=0; n<this->NumberOfVariables; n++)
         printf("%f ",x_var[n]);
         printf("\n");
     }
@@ -91,7 +102,7 @@ bool CIndividualBase::operator<(const CIndividualBase &ind2)
 {
     bool dominated = true;
     unsigned int n;
-    for(n=0; n<NumberOfObjectives; n++)
+    for(n=0; n<this->NumberOfObjectives; n++)
     {
         if(ind2.f_obj[n]<f_obj[n]) return false;
     }
@@ -104,7 +115,7 @@ bool CIndividualBase::operator<<(const CIndividualBase &ind2)
 {
     bool dominated = true;
     unsigned int n;
-    for(n=0; n<NumberOfObjectives; n++)
+    for(n=0; n<this->NumberOfObjectives; n++)
     {
         if(ind2.f_obj[n]<f_obj[n]  - 0.0001) return false;
     }
